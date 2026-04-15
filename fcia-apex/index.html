@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FCIA APEX™ — Electoral Intelligence Report</title>
+<meta name="description" content="CIA·RAND·538 방법론이 결합된 차세대 선거 전략 인텔리전스. 당선 확률, 신뢰도 등급, 전장 지도까지.">
+
+<!-- Pretendard Korean -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+
+<!-- Fraunces English Display -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<!-- Iconify Solar -->
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+
+<style>
+  :root {
+    --black: #050505;
+    --black-soft: #0a0a0a;
+    --black-elev: #111111;
+    --gold: #C7A648;
+    --gold-warm: #D4B14F;
+    --gold-pale: rgba(199, 166, 72, 0.12);
+    --gold-glow: rgba(199, 166, 72, 0.25);
+    --navy-accent: #0F1E3A;
+    --white-90: rgba(255, 255, 255, 0.90);
+    --white-70: rgba(255, 255, 255, 0.70);
+    --white-50: rgba(255, 255, 255, 0.50);
+    --white-30: rgba(255, 255, 255, 0.30);
+    --white-10: rgba(255, 255, 255, 0.10);
+    --white-05: rgba(255, 255, 255, 0.05);
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background: var(--black);
+  }
+
+  body {
+    font-family: 'Pretendard Variable', Pretendard, system-ui, sans-serif;
+    background: var(--black);
+    color: var(--white-90);
+    overflow-x: hidden;
+    letter-spacing: -0.01em;
+  }
+
+  .font-serif-en {
+    font-family: 'Fraunces', 'Instrument Serif', serif;
+    letter-spacing: -0.02em;
+  }
+  .font-serif-ital {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+  }
+
+  /* Global text rules */
+  .kr { word-break: keep-all; }
+
+  /* Motion Standard */
+  .transition-spring {
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* Background Mesh */
+  .mesh-bg {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .mesh-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.4;
+    animation: float 12s ease-in-out infinite;
+  }
+  .mesh-orb.gold { background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%); }
+  .mesh-orb.navy { background: radial-gradient(circle, rgba(30, 50, 100, 0.4) 0%, transparent 70%); }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -40px) scale(1.05); }
+    66% { transform: translate(-20px, 30px) scale(0.95); }
+  }
+
+  /* Noise texture */
+  .noise {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 60;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+  }
+
+  /* Scroll animations */
+  .reveal {
+    opacity: 0;
+    transform: translateY(2rem);
+    filter: blur(4px);
+    transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), filter 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+
+  /* Hero Gradient Text */
+  .gradient-gold {
+    background: linear-gradient(135deg, #E8D5A0 0%, var(--gold) 50%, #B88E35 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Double-Bezel Card */
+  .bezel-outer {
+    background: var(--white-05);
+    border: 1px solid var(--white-10);
+    padding: 0.375rem;
+    border-radius: 2rem;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .bezel-inner {
+    background: linear-gradient(180deg, #0d0d0d 0%, #080808 100%);
+    border-radius: calc(2rem - 0.375rem);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    padding: 2.5rem;
+    height: 100%;
+  }
+  .bezel-outer:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(199, 166, 72, 0.2);
+    transform: translateY(-3px);
+  }
+
+  /* CTA Pill */
+  .cta-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 1.75rem;
+    border-radius: 9999px;
+    font-weight: 600;
+    font-size: 0.9375rem;
+    letter-spacing: -0.01em;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    cursor: pointer;
+    position: relative;
+  }
+  .cta-pill.primary {
+    background: var(--gold);
+    color: var(--black);
+    box-shadow: 0 0 40px rgba(199, 166, 72, 0);
+  }
+  .cta-pill.primary:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 60px rgba(199, 166, 72, 0.35);
+  }
+  .cta-pill.primary:active { transform: scale(0.98); }
+  .cta-pill.secondary {
+    background: var(--white-05);
+    color: var(--white-90);
+    border: 1px solid var(--white-10);
+    padding-right: 1.75rem;
+  }
+  .cta-pill.secondary:hover {
+    background: var(--white-10);
+    border-color: var(--white-30);
+  }
+  .cta-icon {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    background: rgba(0, 0, 0, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .cta-pill:hover .cta-icon { transform: translateX(3px); }
+
+  /* Eyebrow */
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.35rem 0.875rem;
+    border-radius: 9999px;
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    background: var(--gold-pale);
+    color: var(--gold-warm);
+    border: 1px solid rgba(199, 166, 72, 0.2);
+  }
+  .eyebrow .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 9999px;
+    background: var(--gold);
+    box-shadow: 0 0 10px var(--gold);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.2); }
+  }
+
+  /* Floating Nav */
+  .nav-pill {
+    position: fixed;
+    top: 1.25rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 50;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    background: rgba(10, 10, 10, 0.6);
+    border: 1px solid var(--white-10);
+    border-radius: 9999px;
+    padding: 0.5rem 0.75rem 0.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.75rem;
+  }
+  .nav-pill a {
+    font-size: 0.8125rem;
+    color: var(--white-70);
+    transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .nav-pill a:hover { color: var(--gold); }
+
+  /* Hero typography */
+  .hero-title {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    font-optical-sizing: auto;
+    font-variation-settings: "opsz" 144, "SOFT" 30;
+  }
+
+  /* Divider with dot */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: var(--white-30);
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--white-10), transparent);
+  }
+
+  /* Stats row inline */
+  .stat-inline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+  .stat-inline .num {
+    font-family: 'Fraunces', serif;
+    font-size: 2.75rem;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .stat-inline .lbl {
+    font-size: 0.75rem;
+    color: var(--white-50);
+    letter-spacing: 0.05em;
+  }
+
+  /* Portfolio ticker */
+  .ticker {
+    display: flex;
+    gap: 3rem;
+    animation: scroll-x 35s linear infinite;
+    width: max-content;
+  }
+  @keyframes scroll-x {
+    to { transform: translateX(-50%); }
+  }
+  .ticker span {
+    font-family: 'Fraunces', serif;
+    font-weight: 300;
+    font-size: 1.5rem;
+    color: var(--white-30);
+    white-space: nowrap;
+  }
+  .ticker span.gold { color: var(--gold); }
+
+  /* Matrix table */
+  .matrix-row {
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr 1fr;
+    gap: 1px;
+    background: var(--white-05);
+    padding: 1px;
+  }
+  .matrix-cell {
+    background: var(--black-soft);
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .matrix-cell.label {
+    background: linear-gradient(135deg, #0d0d0d, #070707);
+  }
+  .matrix-cell.premium {
+    background: linear-gradient(180deg, rgba(199, 166, 72, 0.08), rgba(199, 166, 72, 0.02));
+    border-right: 1px solid rgba(199, 166, 72, 0.15);
+  }
+  .matrix-cell:hover {
+    background: var(--black-elev);
+  }
+  .matrix-cell.premium:hover {
+    background: linear-gradient(180deg, rgba(199, 166, 72, 0.15), rgba(199, 166, 72, 0.05));
+  }
+
+  /* Vertical rotating text for section labels */
+  .section-mark {
+    position: absolute;
+    left: 2rem;
+    top: 50%;
+    transform: rotate(-90deg) translateX(50%);
+    transform-origin: left center;
+    font-size: 0.6875rem;
+    letter-spacing: 0.4em;
+    color: var(--white-30);
+    text-transform: uppercase;
+    pointer-events: none;
+  }
+
+  /* Tier card premium stamp */
+  .premium-stamp {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    font-size: 0.625rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    font-weight: 500;
+  }
+
+  /* Comparison table */
+  .cmp-row {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr 1fr;
+    gap: 1px;
+    background: var(--white-05);
+    padding: 1px;
+  }
+  .cmp-cell {
+    background: var(--black-soft);
+    padding: 1.25rem 1.5rem;
+    font-size: 0.9375rem;
+  }
+  .cmp-cell.head {
+    background: linear-gradient(135deg, #0d0d0d, #070707);
+    color: var(--white-50);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 1rem 1.5rem;
+  }
+  .cmp-cell.head.gold {
+    color: var(--gold);
+    background: linear-gradient(135deg, rgba(199, 166, 72, 0.1), rgba(199, 166, 72, 0.02));
+  }
+
+  /* FAQ accordion */
+  details {
+    border-bottom: 1px solid var(--white-10);
+    padding: 1.5rem 0;
+    cursor: pointer;
+  }
+  details summary {
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    transition: color 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  details summary::-webkit-details-marker { display: none; }
+  details[open] summary { color: var(--gold); }
+  details summary .faq-plus {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 9999px;
+    border: 1px solid var(--white-10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  details[open] summary .faq-plus {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: var(--black);
+    transform: rotate(45deg);
+  }
+  details p {
+    margin-top: 1rem;
+    color: var(--white-70);
+    line-height: 1.7;
+    padding-right: 3rem;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .matrix-row { grid-template-columns: 1fr; }
+    .matrix-cell { padding: 1.25rem; }
+    .cmp-row { grid-template-columns: 1fr; }
+    .nav-pill { padding: 0.5rem 1rem; gap: 1rem; font-size: 0.75rem; }
+    .nav-pill .nav-links { display: none; }
+    .hero-title { font-size: 3rem !important; }
+    .bezel-inner { padding: 1.5rem; }
+    .section-mark { display: none; }
+  }
+</style>
+</head>
+<body class="min-h-[100dvh]">
+
+<!-- Background Mesh -->
+<div class="mesh-bg">
+  <div class="mesh-orb gold" style="width: 600px; height: 600px; top: -200px; left: -150px; animation-delay: 0s;"></div>
+  <div class="mesh-orb navy" style="width: 500px; height: 500px; top: 40%; right: -100px; animation-delay: -4s;"></div>
+  <div class="mesh-orb gold" style="width: 400px; height: 400px; bottom: -100px; left: 30%; animation-delay: -8s; opacity: 0.2;"></div>
+</div>
+<div class="noise"></div>
+
+<!-- Nav -->
+<nav class="nav-pill">
+  <a href="#top" class="flex items-center gap-2">
+    <span class="font-serif-en text-[15px] font-medium text-white">FCIA</span>
+    <span class="text-[12px] tracking-widest text-[color:var(--gold)] font-medium">APEX</span>
+    <sup class="text-[8px] text-[color:var(--gold)]">™</sup>
+  </a>
+  <div class="nav-links flex items-center gap-6">
+    <a href="#framework">방법론</a>
+    <a href="#products">상품</a>
+    <a href="#portfolio">레퍼런스</a>
+    <a href="#pricing">경쟁력</a>
+  </div>
+  <a href="#contact" class="cta-pill primary" style="padding: 0.375rem 0.375rem 0.375rem 1rem; font-size: 0.75rem;">
+    상담 요청
+    <span class="cta-icon" style="width: 1.5rem; height: 1.5rem;">
+      <iconify-icon icon="solar:arrow-right-linear" width="12"></iconify-icon>
+    </span>
+  </a>
+</nav>
+
+<!-- =========================================== -->
+<!-- HERO -->
+<!-- =========================================== -->
+<section id="top" class="relative pt-36 md:pt-44 pb-24 md:pb-40 px-6 md:px-16 lg:px-24">
+  <div class="max-w-[1400px] mx-auto relative z-10">
+
+    <div class="eyebrow mb-8 reveal">
+      <span class="dot"></span>
+      Electoral Intelligence Report
+    </div>
+
+    <!-- Editorial Split -->
+    <div class="grid md:grid-cols-12 gap-12 items-end">
+
+      <!-- Left: Massive Title -->
+      <div class="md:col-span-7 reveal">
+        <h1 class="hero-title kr text-[3.5rem] md:text-[5.5rem] lg:text-[7rem]">
+          데이터로<br>
+          <span class="gradient-gold font-serif-ital font-light">판세를 읽고,</span><br>
+          <span class="text-white-90">확률로 답한다.</span>
+        </h1>
+      </div>
+
+      <!-- Right: Description + CTA -->
+      <div class="md:col-span-5 md:pb-6 reveal" style="transition-delay: 0.15s;">
+        <p class="text-[color:var(--white-70)] text-[17px] md:text-[18px] leading-[1.7] kr mb-10">
+          FCIA APEX<sup class="text-[10px] text-[color:var(--gold)]">™</sup>는 CIA·RAND·538·Cook Political Report의 최상위 분석 기법을 결합한
+          <span class="text-white font-medium">차세대 선거 전략 인텔리전스</span>입니다.
+          기존 여론조사가 제공하는 격차(±%p)를 넘어, 당선 확률과 신뢰도 등급으로 의사결정을 지원합니다.
+        </p>
+
+        <div class="flex flex-wrap gap-3 mb-12">
+          <a href="#contact" class="cta-pill primary">
+            상담 요청하기
+            <span class="cta-icon"><iconify-icon icon="solar:arrow-right-linear" width="14"></iconify-icon></span>
+          </a>
+          <a href="#framework" class="cta-pill secondary">
+            방법론 보기
+          </a>
+        </div>
+
+        <!-- Inline trust signals -->
+        <div class="grid grid-cols-3 gap-6 pt-8 border-t border-[color:var(--white-10)]">
+          <div class="stat-inline">
+            <div class="num">4 + 4</div>
+            <div class="lbl kr">이중 분석 구조</div>
+          </div>
+          <div class="stat-inline">
+            <div class="num">D-5</div>
+            <div class="lbl kr">표준 납기</div>
+          </div>
+          <div class="stat-inline">
+            <div class="num">97<span class="text-[1.5rem]">%</span></div>
+            <div class="lbl kr">예측 정확도<sup style="font-size:0.6rem">*</sup></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="mt-24 reveal flex items-center gap-3 text-[color:var(--white-30)] text-[13px]" style="transition-delay: 0.3s;">
+      <div class="h-px w-12 bg-[color:var(--white-30)]"></div>
+      <span>SCROLL</span>
+    </div>
+  </div>
+</section>
+
+<!-- =========================================== -->
+<!-- PORTFOLIO TICKER -->
+<!-- =========================================== -->
+<section class="py-16 overflow-hidden border-y border-[color:var(--white-05)] relative z-10">
+  <div class="reveal">
+    <div class="divider mb-6 max-w-[1400px] mx-auto px-6"><span>검증된 레퍼런스</span></div>
+  </div>
+  <div class="ticker">
+    <span>정원오 <span class="text-[color:var(--white-30)] text-base">서울시장</span></span>
+    <span class="gold">·</span>
+    <span>김부겸 <span class="text-[color:var(--white-30)] text-base">대구시장</span></span>
+    <span class="gold">·</span>
+    <span>추미애 <span class="text-[color:var(--white-30)] text-base">경기도지사</span></span>
+    <span class="gold">·</span>
+    <span>박찬대 <span class="text-[color:var(--white-30)] text-base">인천시장</span></span>
+    <span class="gold">·</span>
+    <span>김경수 <span class="text-[color:var(--white-30)] text-base">경남도지사</span></span>
+    <span class="gold">·</span>
+    <span>전재수 <span class="text-[color:var(--white-30)] text-base">부산시장</span></span>
+    <span class="gold">·</span>
+    <span>우상호 <span class="text-[color:var(--white-30)] text-base">강원도지사</span></span>
+    <span class="gold">·</span>
+    <span>박수현 <span class="text-[color:var(--white-30)] text-base">충남도지사</span></span>
+    <span class="gold">·</span>
+
+    <span>정원오 <span class="text-[color:var(--white-30)] text-base">서울시장</span></span>
+    <span class="gold">·</span>
+    <span>김부겸 <span class="text-[color:var(--white-30)] text-base">대구시장</span></span>
+    <span class="gold">·</span>
+    <span>추미애 <span class="text-[color:var(--white-30)] text-base">경기도지사</span></span>
+    <span class="gold">·</span>
+    <span>박찬대 <span class="text-[color:var(--white-30)] text-base">인천시장</span></span>
+    <span class="gold">·</span>
+    <span>김경수 <span class="text-[color:var(--white-30)] text-base">경남도지사</span></span>
+    <span class="gold">·</span>
+    <span>전재수 <span class="text-[color:var(--white-30)] text-base">부산시장</span></span>
+    <span class="gold">·</span>
+    <span>우상호 <span class="text-[color:var(--white-30)] text-base">강원도지사</span></span>
+    <span class="gold">·</span>
+    <span>박수현 <span class="text-[color:var(--white-30)] text-base">충남도지사</span></span>
+    <span class="gold">·</span>
+  </div>
+</section>
+
+<!-- =========================================== -->
+<!-- 5 DIFFERENTIATION POINTS (Bento) -->
+<!-- =========================================== -->
+<section id="framework" class="relative py-24 md:py-36 px-6 md:px-16 lg:px-24">
+  <div class="section-mark hidden md:block">F R A M E W O R K</div>
+  <div class="max-w-[1400px] mx-auto relative z-10">
+
+    <div class="grid md:grid-cols-12 gap-12 mb-20">
+      <div class="md:col-span-5 reveal">
+        <div class="eyebrow mb-6">
+          <span class="dot"></span>
+          5 Core Differentiators
+        </div>
+        <h2 class="hero-title text-[2.5rem] md:text-[3.5rem] kr">
+          기존 컨설팅과는<br>
+          <span class="font-serif-ital gradient-gold font-light">다른 차원</span>의 분석.
+        </h2>
+      </div>
+      <div class="md:col-span-6 md:col-start-7 md:pt-8 reveal" style="transition-delay: 0.1s;">
+        <p class="text-[color:var(--white-70)] text-[16px] leading-[1.8] kr">
+          격차 ±%p가 아닌 당선 확률. 체크리스트가 아닌 패배 역산. 시도 단위가 아닌 읍·면·동 PVI.
+          FCIA APEX<sup class="text-[9px] text-[color:var(--gold)]">™</sup>는 <span class="text-white font-medium">의사결정 지원 문서</span>로서의 선거 보고서를 정의합니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- Bento Grid -->
+    <div class="grid md:grid-cols-12 gap-6">
+
+      <!-- 01 — Large feature card -->
+      <div class="md:col-span-8 reveal">
+        <div class="bezel-outer h-full">
+          <div class="bezel-inner">
+            <div class="flex items-start justify-between mb-8">
+              <span class="font-serif-en text-[0.875rem] text-[color:var(--gold)] tracking-widest">01</span>
+              <div class="w-12 h-12 rounded-2xl bg-[color:var(--gold-pale)] border border-[color:rgba(199,166,72,0.2)] flex items-center justify-center">
+                <iconify-icon icon="solar:layers-linear" width="22" style="color: var(--gold);"></iconify-icon>
+              </div>
+            </div>
+            <h3 class="font-serif-en text-[2rem] md:text-[2.5rem] font-light mb-4 text-white kr">4+4 이중 분석 구조</h3>
+            <p class="text-[color:var(--white-70)] text-[15px] leading-[1.75] kr max-w-[540px]">
+              Pew Research·McKinsey 기반 <span class="text-white">FCIA 4단</span>(Finding · Context · Insight · Action)과
+              CIA·RAND·538·Cook 기반 <span class="text-[color:var(--gold)]">APEX 4단</span>(Assessed · Probabilistic · Exposure · eXtreme)의 결합.
+              총 8차원에서 판세를 해부합니다.
+            </p>
+
+            <div class="mt-10 grid grid-cols-2 gap-4">
+              <div class="p-4 rounded-xl border border-[color:var(--white-10)] bg-[color:var(--white-05)]">
+                <div class="text-[11px] text-[color:var(--white-50)] tracking-widest uppercase mb-2">Layer 1 · FCIA</div>
+                <div class="font-serif-en text-[1.125rem] tracking-tight">F · C · I · A</div>
+              </div>
+              <div class="p-4 rounded-xl border border-[color:rgba(199,166,72,0.25)] bg-[color:var(--gold-pale)]">
+                <div class="text-[11px] text-[color:var(--gold)] tracking-widest uppercase mb-2">Layer 2 · APEX</div>
+                <div class="font-serif-en text-[1.125rem] tracking-tight text-[color:var(--gold)]">A · P · E · X</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 02 — Medium -->
+      <div class="md:col-span-4 reveal" style="transition-delay: 0.1s;">
+        <div class="bezel-outer h-full">
+          <div class="bezel-inner flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between mb-8">
+                <span class="font-serif-en text-[0.875rem] text-[color:var(--gold)] tracking-widest">02</span>
+                <div class="w-12 h-12 rounded-2xl bg-[color:var(--white-05)] border border-[color:var(--white-10)] flex items-center justify-center">
+                  <iconify-icon icon="solar:shield-check-linear" width="22" style="color: var(--gold);"></iconify-icon>
+                </div>
+              </div>
+              <h3 class="font-serif-en text-[1.5rem] md:text-[1.75rem] font-light mb-4 kr">신뢰도 등급 명기</h3>
+              <p class="text-[color:var(--white-70)] text-[14px] leading-[1.7] kr">
+                CIA NIE 방식. 모든 판단에 <span class="text-white">High / Medium / Low</span> 신뢰도 등급과 Alternative Analysis(반대 시나리오)를 병기합니다.
+              </p>
+            </div>
+            <div class="flex gap-2 mt-8">
+              <span class="text-[10px] px-2 py-1 rounded-md bg-green-500/10 text-green-400 border border-green-500/20">HIGH</span>
+              <span class="text-[10px] px-2 py-1 rounded-md bg-yellow-500/10 text-yellow-400 border border-yellow-500/20">MEDIUM</span>
+              <span class="text-[10px] px-2 py-1 rounded-md bg-red-500/10 text-red-400 border border-red-500/20">LOW</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 03 — Medium -->
+      <div class="md:col-span-4 reveal" style="transition-delay: 0.2s;">
+        <div class="bezel-outer h-full">
+          <div class="bezel-inner">
+            <div class="flex items-start justify-between mb-8">
+              <span class="font-serif-en text-[0.875rem] text-[color:var(--gold)] tracking-widest">03</span>
+              <div class="w-12 h-12 rounded-2xl bg-[color:var(--white-05)] border border-[color:var(--white-10)] flex items-center justify-center">
+                <iconify-icon icon="solar:chart-2-linear" width="22" style="color: var(--gold);"></iconify-icon>
+              </div>
+            </div>
+            <h3 class="font-serif-en text-[1.5rem] md:text-[1.75rem] font-light mb-4 kr">확률 기반 예측</h3>
+            <p class="text-[color:var(--white-70)] text-[14px] leading-[1.7] kr mb-6">
+              Nate Silver / 538 방식. Monte Carlo 시뮬레이션으로 당선 확률과 시나리오별 분포를 제시합니다.
+            </p>
+            <div class="font-serif-en text-[3rem] text-[color:var(--gold)] font-light leading-none">
+              89<span class="text-[1.5rem]">%</span>
+            </div>
+            <div class="text-[11px] text-[color:var(--white-50)] tracking-wider mt-1">CANDIDATE WIN PROBABILITY</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 04 — Medium -->
+      <div class="md:col-span-4 reveal" style="transition-delay: 0.3s;">
+        <div class="bezel-outer h-full">
+          <div class="bezel-inner">
+            <div class="flex items-start justify-between mb-8">
+              <span class="font-serif-en text-[0.875rem] text-[color:var(--gold)] tracking-widest">04</span>
+              <div class="w-12 h-12 rounded-2xl bg-[color:var(--white-05)] border border-[color:var(--white-10)] flex items-center justify-center">
+                <iconify-icon icon="solar:map-point-linear" width="22" style="color: var(--gold);"></iconify-icon>
+              </div>
+            </div>
+            <h3 class="font-serif-en text-[1.5rem] md:text-[1.75rem] font-light mb-4 kr">권역 전장 지도</h3>
+            <p class="text-[color:var(--white-70)] text-[14px] leading-[1.7] kr">
+              Cook Political Report의 PVI 방식. 읍·면·동 단위까지 정당 편향 지수를 산출하여 <span class="text-white">자원 배분 최적화</span>를 지원합니다.
+            </p>
+            <div class="mt-6 flex gap-1.5">
+              <div class="h-2 flex-1 rounded-full bg-blue-500/40"></div>
+              <div class="h-2 flex-1 rounded-full bg-blue-500/60"></div>
+              <div class="h-2 flex-1 rounded-full bg-blue-500/80"></div>
+              <div class="h-2 flex-1 rounded-full bg-amber-500/60"></div>
+              <div class="h-2 flex-1 rounded-full bg-red-500/40"></div>
+            </div>
+            <div class="flex justify-between text-[10px] text-[color:var(--white-50)] mt-2 tracking-wider">
+              <span>D+25</span><span>±0</span><span>R+25</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 05 — Large feature (different treatment) -->
+      <div class="md:col-span-8 reveal" style="transition-delay: 0.4s;">
+        <div class="bezel-outer h-full">
+          <div class="bezel-inner relative overflow-hidden">
+            <div class="absolute -top-20 -right-20 w-80 h-80 rounded-full bg-red-500/10 blur-3xl"></div>
+            <div class="relative">
+              <div class="flex items-start justify-between mb-8">
+                <span class="font-serif-en text-[0.875rem] text-[color:var(--gold)] tracking-widest">05</span>
+                <div class="w-12 h-12 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center">
+                  <iconify-icon icon="solar:danger-triangle-linear" width="22" style="color: #f87171;"></iconify-icon>
+                </div>
+              </div>
+              <h3 class="font-serif-en text-[2rem] md:text-[2.5rem] font-light mb-4 text-white kr">패배 역산 분석</h3>
+              <p class="text-[color:var(--white-70)] text-[15px] leading-[1.75] kr max-w-[540px] mb-8">
+                RAND·McKinsey·Goldman Sachs의 Pre-Mortem 기법. 선거 다음 날 관점에서
+                <span class="font-serif-ital text-[color:var(--gold)]">"무엇이 잘못되었을까"</span>를 역산하여 낙관 편향을 제거하고
+                리스크 우선순위를 실질적으로 도출합니다.
+              </p>
+
+              <div class="flex items-center gap-4 pt-6 border-t border-[color:var(--white-10)]">
+                <iconify-icon icon="solar:clock-circle-linear" width="18" style="color: var(--gold);"></iconify-icon>
+                <div class="font-serif-en text-[1rem] text-[color:var(--white-70)]">
+                  <span class="text-white">6월 4일 오전 9시</span> · 선거 다음 날 시점에서 역산하는 5대 실패 가설
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================== -->
+<!-- PRODUCT MATRIX -->
+<!-- =========================================== -->
+<section id="products" class="relative py-24 md:py-36 px-6 md:px-16 lg:px-24 bg-[color:var(--black-soft)]">
+  <div class="section-mark hidden md:block">P R O D U C T</div>
+  <div class="max-w-[1400px] mx-auto relative z-10">
+
+    <div class="mb-20 max-w-3xl reveal">
+      <div class="eyebrow mb-6">
+        <span class="dot"></span>
+        Product Matrix
+      </div>
+      <h2 class="hero-title text-[2.5rem] md:text-[3.5rem] kr mb-6">
+        <span class="font-serif-ital gradient-gold font-light">선거 유형 × 품질 티어</span><br>
+        9개 기본 상품.
+      </h2>
+      <p class="text-[color:var(--white-70)] text-[16px] leading-[1.8] kr">
+        광역단체장 · 기초단체장 · 국회의원 보궐 세 가지 선거 유형에 대해
+        Premium · Essential · Standard 3단계 품질 티어로 구성된 9개 기본 상품.
+        부가 모듈과 구독형 패키지로 확장됩니다.
+      </p>
+    </div>
+
+    <!-- Matrix Grid -->
+    <div class="reveal">
+      <!-- Header row -->
+      <div class="matrix-row">
+        <div class="matrix-cell label">
+          <span class="text-[11px] text-[color:var(--white-50)] tracking-widest uppercase">선거 유형</span>
+        </div>
+        <div class="matrix-cell label">
+          <span class="text-[11px] text-[color:var(--gold)] tracking-widest uppercase font-medium">APEX Premium</span>
+          <span class="text-[10px] text-[color:var(--white-50)]">FCIA 4단 + APEX 4단 전부</span>
+        </div>
+        <div class="matrix-cell label">
+          <span class="text-[11px] text-[color:var(--white-70)] tracking-widest uppercase">APEX Essential</span>
+          <span class="text-[10px] text-[color:var(--white-50)]">FCIA + Judgments · Pre-Mortem</span>
+        </div>
+        <div class="matrix-cell label">
+          <span class="text-[11px] text-[color:var(--white-50)] tracking-widest uppercase">Standard</span>
+          <span class="text-[10px] text-[color:var(--white-50)]">FCIA 4단 기본</span>
+        </div>
+      </div>
+
+      <!-- Row 1: 광역 -->
+      <div class="matrix-row">
+        <div class="matrix-cell">
+          <span class="font-serif-en text-[1.25rem] text-white">광역단체장</span>
+          <span class="text-[12px] text-[color:var(--white-50)] kr">시·도지사 / 광역시장</span>
+        </div>
+        <div class="matrix-cell premium">
+          <span class="font-serif-en text-[1.875rem] text-[color:var(--gold)] font-light">600<span class="text-[14px] text-[color:var(--white-50)]">만</span></span>
+          <span class="text-[12px] text-[color:var(--white-70)] kr">권역·인구·재정 통합 분석<br>상대 반격 + 100일 로드맵</span>
+        </div>
+        <div class="matrix-cell">
+          <span class="font-serif-en text-[1.5rem] text-white font-light">350<span class="text-[14px] text-[color:var(--white-50)]">만</span></span>
+          <span class="text-[12px] text-[color:var(--white-50)] kr">Key Judgment + Pre-Mortem</span>
+        </div>
+        <div class="matrix-cell">
+          <span class="font-serif-en text-[1.5rem] text-[color:var(--white-70)] font-light">180<span class="text-[14px] text-[color:var(--white-50)]">만</span></span>
+          <span class="text-[12px] text-[color:var(--white-50)] kr">판세·쟁점 기본 분석</span>
+        </div>
+      </div>
+
+      <!-- Row 2: 기초 -->
+      <div class="matrix-row">
+        <div class="matrix-cell">
+          <span class="font-serif-en text-[1.25rem] text-white">기초단체장</span>
+          <span class="text-[12px] text-[color:var(--white-50)] kr">시장 · 군수 · 구청장</span>
+        </div>
+        <div class="matrix-cell premium">
+          <span class="font-serif-en text-[1.875rem] text-[color:var(--gold)] font-light">350<span class="text-[14px] text-[color:var(--white-50)]">만</span></span>
+          <span class="text-[12px] text-[color:var(--white-70)] kr">읍·면·동 PVI 미시분석<br>APEX 4단 전부</span>
+        </div>
+        <div class="matrix-cell">
+          <span class="font-serif-en text-[1.5rem] text-white font-light">200<span class="text-[14px] text-[color:var(--white-50)]">만</span></span>
+          <span class="text-[12px] text-[color:var(--white-50)] kr">Judgment + Pre-Mortem</span>
+        </div>
+        <div class="matrix-cell">
+          <span class="font-serif-en text-[1.5rem] text-[color:var(--white-70)] font-light">100<span class="text-[14px] text-[color:var(--white-50)]">만</span></span>
+          <span class="text-[12px] text-[color:var(--white-50)] kr">판세 기본 분석</span>
+        </div>
+      </div>
+
+      <!-- Row 3: 보궐 -->
+      <div class="matrix-row">
+        <div class="matrix-cell">
+          <span class="font-serif-en text-[1.25rem] text-white">국회의원 보궐</span>
+          <span class="text-[12px] text-[color:var(--white-50)] kr">선거구 단위</span>
+        </div>
+        <div class="matrix-cell premium">
+          <span class="font-serif-en text-[1.875rem] text-[color:var(--gold)] font-light">250<span class="text-[14px] text-[color:var(--white-50)]">만</span></span>
+          <span class="text-[12px] text-[color:var(--white-70)] kr">동별 미시분석<br>D-30 집중 로드맵</span>
+        </div>
+        <div class="matrix-cell">
+          <span class="font-serif-en text-[1.5rem] text-white font-light">150<span class="text-[14px] text-[color:var(--white-50)]">만</span></span>
+          <span class="text-[12px] text-[color:var(--white-50)] kr">Judgment + Pre-Mortem</span>
+        </div>
+        <div class="matrix-cell">
+          <span class="font-serif-en text-[1.5rem] text-[color:var(--white-70)] font-light">80<span class="text-[14px] text-[color:var(--white-50)]">만</span></span>
+          <span class="text-[12px] text-[color:var(--white-50)] kr">요약 판세 분석</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add-ons and subscription hint -->
+    <div class="grid md:grid-cols-3 gap-6 mt-16 reveal">
+      <div class="bezel-outer">
+        <div class="bezel-inner !p-6">
+          <div class="text-[11px] text-[color:var(--gold)] tracking-widest uppercase mb-3">Subscription</div>
+          <h4 class="text-[1.125rem] font-medium mb-2 kr">캠프 파트너십</h4>
+          <p class="text-[13px] text-[color:var(--white-70)] leading-[1.6] kr">월간 여론 업데이트 · 위기 대응 리테이너</p>
+          <div class="font-serif-en text-[1.5rem] text-white mt-4 font-light">월 200<span class="text-[12px] text-[color:var(--white-50)]">만</span></div>
+        </div>
+      </div>
+      <div class="bezel-outer">
+        <div class="bezel-inner !p-6">
+          <div class="text-[11px] text-[color:var(--gold)] tracking-widest uppercase mb-3">One-time</div>
+          <h4 class="text-[1.125rem] font-medium mb-2 kr">D-51 풀패키지</h4>
+          <p class="text-[13px] text-[color:var(--white-70)] leading-[1.6] kr">선거일까지 무제한 분석 · 토론 브리핑</p>
+          <div class="font-serif-en text-[1.5rem] text-white mt-4 font-light">1,500<span class="text-[12px] text-[color:var(--white-50)]">만</span></div>
+        </div>
+      </div>
+      <div class="bezel-outer">
+        <div class="bezel-inner !p-6">
+          <div class="text-[11px] text-[color:var(--gold)] tracking-widest uppercase mb-3">Group B2B</div>
+          <h4 class="text-[1.125rem] font-medium mb-2 kr">지역위원회 패키지</h4>
+          <p class="text-[13px] text-[color:var(--white-70)] leading-[1.6] kr">광역 1 + 기초 3건 통합 · 15% 할인</p>
+          <div class="font-serif-en text-[1.5rem] text-white mt-4 font-light">3,500<span class="text-[12px] text-[color:var(--white-50)]">만</span></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================== -->
+<!-- COMPARISON -->
+<!-- =========================================== -->
+<section id="pricing" class="relative py-24 md:py-36 px-6 md:px-16 lg:px-24">
+  <div class="section-mark hidden md:block">C O M P A R I S O N</div>
+  <div class="max-w-[1200px] mx-auto relative z-10">
+
+    <div class="text-center mb-16 reveal">
+      <div class="eyebrow mb-6 mx-auto">
+        <span class="dot"></span>
+        vs. 기존 선거 컨설팅
+      </div>
+      <h2 class="hero-title text-[2.5rem] md:text-[3.5rem] kr">
+        왜 <span class="font-serif-ital gradient-gold font-light">FCIA APEX</span>™ 인가.
+      </h2>
+    </div>
+
+    <div class="reveal">
+      <div class="cmp-row">
+        <div class="cmp-cell head"><span>비교 항목</span></div>
+        <div class="cmp-cell head"><span>기존 컨설팅</span></div>
+        <div class="cmp-cell head gold"><span>FCIA APEX™</span></div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell kr font-medium">판세 표현</div>
+        <div class="cmp-cell text-[color:var(--white-70)] kr">격차 ±%p</div>
+        <div class="cmp-cell text-[color:var(--gold)] kr font-medium">당선 확률 % · 신뢰구간</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell kr font-medium">판단 신뢰도</div>
+        <div class="cmp-cell text-[color:var(--white-70)] kr">미표기</div>
+        <div class="cmp-cell text-[color:var(--gold)] kr font-medium">High · Medium · Low 명기</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell kr font-medium">지역 분석 깊이</div>
+        <div class="cmp-cell text-[color:var(--white-70)] kr">시·도 단위</div>
+        <div class="cmp-cell text-[color:var(--gold)] kr font-medium">권역 · 동 PVI Battle Map</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell kr font-medium">리스크 분석</div>
+        <div class="cmp-cell text-[color:var(--white-70)] kr">체크리스트</div>
+        <div class="cmp-cell text-[color:var(--gold)] kr font-medium">Pre-Mortem 5대 가설</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell kr font-medium">반대 시나리오</div>
+        <div class="cmp-cell text-[color:var(--white-70)] kr">미포함</div>
+        <div class="cmp-cell text-[color:var(--gold)] kr font-medium">모든 판단에 병기</div>
+      </div>
+      <div class="cmp-row">
+        <div class="cmp-cell kr font-medium">표준 납기</div>
+        <div class="cmp-cell text-[color:var(--white-70)] kr">2~3주</div>
+        <div class="cmp-cell text-[color:var(--gold)] kr font-medium">초도 5일 · 업데이트 7일</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================== -->
+<!-- PORTFOLIO / PROOF -->
+<!-- =========================================== -->
+<section id="portfolio" class="relative py-24 md:py-36 px-6 md:px-16 lg:px-24 bg-[color:var(--black-soft)]">
+  <div class="section-mark hidden md:block">R E F E R E N C E</div>
+  <div class="max-w-[1400px] mx-auto relative z-10">
+
+    <div class="grid md:grid-cols-12 gap-12 mb-16">
+      <div class="md:col-span-5 reveal">
+        <div class="eyebrow mb-6">
+          <span class="dot"></span>
+          Selected Work
+        </div>
+        <h2 class="hero-title text-[2.5rem] md:text-[3.5rem] kr">
+          2026 6·3 지방선거에서<br>
+          <span class="font-serif-ital gradient-gold font-light">검증된 방법론.</span>
+        </h2>
+      </div>
+      <div class="md:col-span-6 md:col-start-7 md:pt-8 reveal" style="transition-delay: 0.1s;">
+        <p class="text-[color:var(--white-70)] text-[16px] leading-[1.8] kr">
+          10개 광역단체장 + 1개 기초단체장에 대한 전략 인텔리전스 리포트를 제작하였습니다.
+          갤럽·리얼미터·경향신문·MBC 4개 기관 조사 교차검증과 KOSIS 인구·지방재정365 데이터를 통합 분석합니다.
+        </p>
+      </div>
+    </div>
+
+    <!-- Featured cases -->
+    <div class="grid md:grid-cols-2 gap-6 reveal">
+      <div class="bezel-outer">
+        <div class="bezel-inner">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <div class="text-[11px] text-[color:var(--gold)] tracking-widest uppercase mb-2">Case 01 · 서울시장</div>
+              <h4 class="font-serif-en text-[2rem] font-light text-white">정원오</h4>
+              <p class="text-[13px] text-[color:var(--white-50)] mt-1">더불어민주당 · 현 성동구청장</p>
+            </div>
+            <span class="text-[10px] px-2 py-1 rounded-md bg-green-500/10 text-green-400 border border-green-500/20 tracking-wider">V3.0</span>
+          </div>
+          <div class="space-y-3">
+            <div class="flex justify-between text-[13px] border-b border-[color:var(--white-05)] pb-3">
+              <span class="text-[color:var(--white-50)] kr">당선 확률</span>
+              <span class="font-serif-en text-[color:var(--gold)]">89%</span>
+            </div>
+            <div class="flex justify-between text-[13px] border-b border-[color:var(--white-05)] pb-3">
+              <span class="text-[color:var(--white-50)] kr">예상 격차</span>
+              <span class="font-serif-en text-white">+13.8%p</span>
+            </div>
+            <div class="flex justify-between text-[13px]">
+              <span class="text-[color:var(--white-50)] kr">핵심 권역 PVI</span>
+              <span class="font-serif-en text-white">강남4구 D+13 · 강북 D+27</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bezel-outer">
+        <div class="bezel-inner">
+          <div class="flex items-start justify-between mb-6">
+            <div>
+              <div class="text-[11px] text-[color:var(--gold)] tracking-widest uppercase mb-2">Case 02 · 대구시장</div>
+              <h4 class="font-serif-en text-[2rem] font-light text-white">김부겸</h4>
+              <p class="text-[13px] text-[color:var(--white-50)] mt-1">더불어민주당 · 전 국무총리</p>
+            </div>
+            <span class="text-[10px] px-2 py-1 rounded-md bg-green-500/10 text-green-400 border border-green-500/20 tracking-wider">V3.1</span>
+          </div>
+          <div class="space-y-3">
+            <div class="flex justify-between text-[13px] border-b border-[color:var(--white-05)] pb-3">
+              <span class="text-[color:var(--white-50)] kr">당선 확률 (3자 구도)</span>
+              <span class="font-serif-en text-[color:var(--gold)]">97%</span>
+            </div>
+            <div class="flex justify-between text-[13px] border-b border-[color:var(--white-05)] pb-3">
+              <span class="text-[color:var(--white-50)] kr">예상 격차</span>
+              <span class="font-serif-en text-white">+32%p</span>
+            </div>
+            <div class="flex justify-between text-[13px]">
+              <span class="text-[color:var(--white-50)] kr">역사적 의미</span>
+              <span class="font-serif-ital text-[color:var(--gold)]">35년 만의 대구 정치 전환</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================== -->
+<!-- FAQ -->
+<!-- =========================================== -->
+<section class="relative py-24 md:py-36 px-6 md:px-16 lg:px-24">
+  <div class="section-mark hidden md:block">F A Q</div>
+  <div class="max-w-[1000px] mx-auto relative z-10">
+
+    <div class="mb-16 reveal">
+      <div class="eyebrow mb-6">
+        <span class="dot"></span>
+        Frequently Asked
+      </div>
+      <h2 class="hero-title text-[2.5rem] md:text-[3.5rem] kr">
+        자주 묻는 질문.
+      </h2>
+    </div>
+
+    <div class="reveal">
+      <details open>
+        <summary>
+          <span class="kr">자체 여론조사를 수행하나요?</span>
+          <span class="faq-plus"><iconify-icon icon="solar:add-circle-linear" width="16"></iconify-icon></span>
+        </summary>
+        <p class="kr">
+          직접 여론조사를 실시하지는 않습니다. 공개된 한국갤럽·리얼미터 등 주요 조사 기관의 결과표 원본을 입수하여
+          크로스탭 교차분석과 방법론 간 괴리 분석을 수행합니다. 필요 시 캠프가 보유한 자체 여론조사 데이터를 추가로 통합할 수 있습니다.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          <span class="kr">보고서 납품 형식과 소요 기간은?</span>
+          <span class="faq-plus"><iconify-icon icon="solar:add-circle-linear" width="16"></iconify-icon></span>
+        </summary>
+        <p class="kr">
+          HTML과 PDF 두 가지 형식으로 납품합니다. 표준 납기는 초도 5영업일, 업데이트 7영업일입니다.
+          APEX Premium은 평균 40~50페이지 분량이며, 페이지 하단에 브랜드와 버전 라인이 포함됩니다.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          <span class="kr">선거법에 저촉되지 않나요?</span>
+          <span class="faq-plus"><iconify-icon icon="solar:add-circle-linear" width="16"></iconify-icon></span>
+        </summary>
+        <p class="kr">
+          본 상품은 공개된 데이터를 분석한 내부 전략 자문 문서로, 선거운동 기획·홍보물 제작이 아닙니다.
+          후보 캠프의 비용 지급과 회계 처리는 선거관리위원회 가이드라인에 따라 수행되며, 지역위원회 경유 수주를 권장합니다.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          <span class="kr">여러 후보 동시 수주가 가능한가요?</span>
+          <span class="faq-plus"><iconify-icon icon="solar:add-circle-linear" width="16"></iconify-icon></span>
+        </summary>
+        <p class="kr">
+          동일 선거의 경쟁 후보는 동시 수임하지 않습니다. 동일 정당 내에서 경선 경쟁 중인 후보에 대해서도 단일 후보 선정 후 착수합니다.
+          다른 정당·다른 선거구 후보는 병행 가능합니다.
+        </p>
+      </details>
+
+      <details>
+        <summary>
+          <span class="kr">Pre-Mortem 분석이 무엇인가요?</span>
+          <span class="faq-plus"><iconify-icon icon="solar:add-circle-linear" width="16"></iconify-icon></span>
+        </summary>
+        <p class="kr">
+          선거 다음 날 "우리가 패배했다"고 가정하고 그 원인을 역산하는 RAND·McKinsey·Goldman Sachs의 의사결정 기법입니다.
+          낙관 편향을 제거하여 실질적 리스크 우선순위를 도출합니다. 체크리스트 방식의 전통적 리스크 분석을 넘어 행동 가능한 대응책을 제시합니다.
+        </p>
+      </details>
+    </div>
+
+  </div>
+</section>
+
+<!-- =========================================== -->
+<!-- CONTACT / FINAL CTA -->
+<!-- =========================================== -->
+<section id="contact" class="relative py-24 md:py-40 px-6 md:px-16 lg:px-24">
+  <div class="max-w-[1200px] mx-auto relative z-10">
+    <div class="bezel-outer reveal">
+      <div class="bezel-inner !p-12 md:!p-20 text-center relative overflow-hidden">
+        <div class="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-[color:var(--gold)]/5 blur-3xl"></div>
+        <div class="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-[color:var(--gold)]/5 blur-3xl"></div>
+
+        <div class="relative">
+          <div class="eyebrow mb-8 mx-auto">
+            <span class="dot"></span>
+            Ready to Start
+          </div>
+
+          <h2 class="hero-title text-[2.5rem] md:text-[4.5rem] kr mb-6">
+            당신의 선거에<br>
+            <span class="font-serif-ital gradient-gold font-light">확률을 더하십시오.</span>
+          </h2>
+
+          <p class="text-[color:var(--white-70)] text-[16px] md:text-[18px] leading-[1.8] kr max-w-[640px] mx-auto mb-12">
+            FCIA APEX™ 전문 컨설턴트가 48시간 이내 직접 연락드립니다.
+            무료 사전 상담으로 귀하의 선거에 가장 적합한 티어와 패키지를 제안합니다.
+          </p>
+
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="mailto:fcia.apex@laiari.kr" class="cta-pill primary">
+              상담 요청하기
+              <span class="cta-icon"><iconify-icon icon="solar:arrow-right-linear" width="14"></iconify-icon></span>
+            </a>
+            <a href="tel:02-000-0000" class="cta-pill secondary">
+              <iconify-icon icon="solar:phone-calling-linear" width="16"></iconify-icon>
+              전화 문의
+            </a>
+          </div>
+
+          <div class="mt-16 pt-8 border-t border-[color:var(--white-10)] grid grid-cols-3 gap-6 max-w-2xl mx-auto">
+            <div class="stat-inline items-center text-center">
+              <div class="num text-[1.75rem]">48h</div>
+              <div class="lbl kr">회신 시간</div>
+            </div>
+            <div class="stat-inline items-center text-center">
+              <div class="num text-[1.75rem]">무료</div>
+              <div class="lbl kr">사전 상담</div>
+            </div>
+            <div class="stat-inline items-center text-center">
+              <div class="num text-[1.75rem]">5일</div>
+              <div class="lbl kr">표준 납기</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="relative py-14 px-6 md:px-16 lg:px-24 border-t border-[color:var(--white-05)]">
+  <div class="max-w-[1400px] mx-auto relative z-10">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+      <div>
+        <div class="flex items-center gap-2 mb-2">
+          <span class="font-serif-en text-[18px] text-white">FCIA</span>
+          <span class="text-[14px] tracking-widest text-[color:var(--gold)] font-medium">APEX</span>
+          <sup class="text-[9px] text-[color:var(--gold)]">™</sup>
+        </div>
+        <p class="text-[12px] text-[color:var(--white-50)] kr">
+          지방자치혁신연구원 · Electoral Intelligence Report
+        </p>
+      </div>
+      <div class="flex flex-col md:items-end gap-1">
+        <p class="text-[11px] text-[color:var(--white-30)]">Finding · Context · Insight · Action</p>
+        <p class="text-[11px] text-[color:var(--gold)]">+ Assessed · Probabilistic · Exposure · eXtreme</p>
+      </div>
+    </div>
+    <div class="mt-10 pt-6 border-t border-[color:var(--white-05)] flex flex-col md:flex-row justify-between gap-4">
+      <p class="text-[11px] text-[color:var(--white-30)]">
+        © 2026 지방자치혁신연구원 FCIA APEX. All rights reserved.
+      </p>
+      <p class="text-[11px] text-[color:var(--white-30)]">
+        Confidential Strategy Document · Internal Use Only
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
