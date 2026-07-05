@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="지방자치혁신연구원">
+  <rect width="64" height="64" rx="16" fill="#0F172A"/>
+  <path d="M17 20h30v5H17v-5Zm0 10h30v5H17v-5Zm0 10h20v5H17v-5Z" fill="#FFFFFF"/>
+  <circle cx="46" cy="43" r="5" fill="#16A34A"/>
+</svg>

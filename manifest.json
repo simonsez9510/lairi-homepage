@@ -1,0 +1,21 @@
+{
+  "name": "home_jachinews_nextjs_handoff",
+  "created_at": "2026-07-05",
+  "purpose": "Next.js componentized implementation handoff for home.jachinews.kr redesign",
+  "entrypoints": [
+    "app/page.tsx",
+    "app/globals.css",
+    "src/data/home.ts"
+  ],
+  "docs": [
+    "docs/content-map.md",
+    "docs/implementation-notes.md",
+    "docs/qa-checklist.md",
+    "docs/current-site-snapshot.md"
+  ],
+  "does_not_include": [
+    "font files",
+    "third-party images",
+    "production secrets"
+  ]
+}
