@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { homeMenuCards } from "@/data/home";
 import { Icon } from "./Icon";
 
@@ -15,7 +16,7 @@ export function HomeMenuGrid() {
       </div>
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {homeMenuCards.map((card) => (
-          <a key={card.href} className="focus-ring group flex h-full flex-col rounded-[20px] border border-civic-line bg-white shadow-civic transition hover:-translate-y-0.5 hover:border-civic-green/40" href={card.href}>
+          <Link key={card.href} className="focus-ring group flex h-full flex-col rounded-[20px] border border-civic-line bg-white shadow-civic transition hover:-translate-y-0.5 hover:border-civic-green/40" href={card.href}>
             <div className="flex items-center justify-between rounded-t-[20px] bg-gradient-to-br from-emerald-50 to-white p-5">
               <span className="grid h-12 w-12 place-items-center rounded-2xl bg-civic-green/10 text-civic-green transition group-hover:scale-105">
                 <Icon name={card.icon} size={28} />
@@ -27,7 +28,7 @@ export function HomeMenuGrid() {
               <h3 className="mt-2 text-[21px] font-bold leading-[1.25] text-civic-navy">{card.title}</h3>
               <p className="mt-2 text-[14px] leading-[1.55] text-civic-muted">{card.copy}</p>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
     </section>

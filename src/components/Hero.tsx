@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { HeroArt } from "./HeroArt";
 import { Icon } from "./Icon";
 
@@ -14,14 +15,14 @@ export function Hero() {
           지방의회와 지자체를 위한 정책연구, AI 의정지원, 데이터 기반 뉴스 인사이트를 하나의 흐름으로 연결합니다.
         </p>
         <div className="mt-7 flex flex-wrap gap-3 max-[640px]:flex-col">
-          <a className="focus-ring inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-civic-green px-6 font-extrabold text-white shadow-[0_14px_30px_rgba(22,163,74,0.28)] transition hover:-translate-y-0.5 active:translate-y-px" href="/ai">
+          <Link className="focus-ring inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full bg-civic-green px-6 font-extrabold text-white shadow-[0_14px_30px_rgba(22,163,74,0.28)] transition hover:-translate-y-0.5 active:translate-y-px" href="/ai">
             AI 의정시스템 보기
             <Icon name="solar:arrow-right-linear" size={17} />
-          </a>
-          <a className="focus-ring inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 font-extrabold text-civic-navy transition hover:border-slate-300 hover:bg-slate-50 active:translate-y-px" href="/news">
+          </Link>
+          <Link className="focus-ring inline-flex min-h-[48px] items-center justify-center gap-2 rounded-full border border-slate-200 bg-white px-6 font-extrabold text-civic-navy transition hover:border-slate-300 hover:bg-slate-50 active:translate-y-px" href="/news">
             지방자치혁신뉴스
             <Icon name="solar:arrow-right-up-linear" size={17} />
-          </a>
+          </Link>
         </div>
       </div>
 

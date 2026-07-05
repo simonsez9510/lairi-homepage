@@ -11,8 +11,8 @@ export const links = {
   home: "https://home.jachinews.kr",
   news: "https://jachinews.kr",
   ai: "https://jachiai.kr",
-  introPdf: "/lairi-1pager.pdf",
-  fciaApex: "/fcia-apex/",
+  introPdf: "/lairi-homepage/lairi-1pager.pdf",
+  fciaApex: "/lairi-homepage/fcia-apex/",
 };
 
 export const proofItems = [
