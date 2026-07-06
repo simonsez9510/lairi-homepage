@@ -10,7 +10,7 @@ export default function FciaApexPage() {
     <main style={{ minHeight: "100dvh", background: "#0f172a" }}>
       <iframe
         title="FCIA APEX"
-        src="/lairi-homepage/fcia-apex/index.html"
+        src="/fcia-apex/index.html"
         style={{ display: "block", width: "100%", height: "100dvh", border: 0 }}
       />
     </main>
