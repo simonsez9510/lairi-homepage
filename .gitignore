@@ -30,3 +30,6 @@ pnpm-debug.log*
 next-env.d.ts
 
 .vercel
+
+# omo codegraph symlink
+.codegraph
