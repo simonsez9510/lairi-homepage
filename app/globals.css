@@ -33,7 +33,7 @@ html {
 body {
   margin: 0;
   color: var(--color-civic-ink);
-  background: var(--color-civic-paper);
+  background: #f7f6f2;
   font-family: var(--font-sans);
   font-size: 1.0625rem;
   line-height: 1.65;

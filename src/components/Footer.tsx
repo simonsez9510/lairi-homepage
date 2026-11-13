@@ -8,6 +8,10 @@ export function Footer() {
         서울특별시 마포구 어울마당로 130, 3층 3358호 ·{" "}
         <a className="font-medium text-civic-navy" href={links.news} target="_blank" rel="noopener noreferrer">
           jachinews.kr
+        </a>{" "}
+        ·{" "}
+        <a className="font-medium text-civic-navy" href="https://mook.jachiai.kr" target="_blank" rel="noopener noreferrer">
+          mook.jachiai.kr
         </a>
       </span>
     </footer>

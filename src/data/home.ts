@@ -137,7 +137,7 @@ export const researchTimeline = [
   {
     year: "2026",
     projects: [
-      { title: "제6기 지역사회보장계획수립 용역", meta: "인천광역시 남동구청 / 진행 중" },
+      { title: "제6기 지역사회보장계획수립 용역", meta: "인천광역시 남동구청 / 지역사회보장, 복지 계획" },
     ],
   },
 ];
@@ -194,4 +194,101 @@ export const contactDetails = [
   { label: "주소", value: "서울특별시 마포구 어울마당로 130, 3층 3358호(서교동, 기린빌딩)" },
   { label: "뉴스", value: "jachinews.kr", href: links.news },
   { label: "소개서", value: "lairi-1pager.pdf", href: links.introPdf },
+];
+
+export const featuredResearch = {
+  type: "지역사회보장계획",
+  meta: "2026년 9월 준공 · 인천광역시 남동구청",
+  title: "남동구 제6기 지역사회보장계획, 10대 전략과 55개 세부사업",
+  summary:
+    "「모두의 삶을 잇는 행복도시 남동」을 비전으로 2027~2030년 4년간의 지역사회보장 계획을 수립했습니다. 사회보장 전략 5개와 지역발전 전략 5개 아래 55개 세부사업과 10개 중점추진사업을 담았습니다.",
+  findings: [
+    { label: "사회보장", text: "함께 키우는 남동부터 혁신경제도시 남동까지 5대 전략" },
+    { label: "지역발전", text: "급여·발굴, 인력, 거버넌스, 인프라, 열린 돌봄 5대 전략" },
+    { label: "중점추진", text: "고독·고립 위험자 발굴, 수요자 중심 취업지원 등 10개 사업" },
+  ],
+  href: "/track",
+};
+
+export const recentItems = [
+  {
+    type: "정책연구",
+    meta: "2025 · 인천광역시 동구의회",
+    title: "인천 동구 전통시장 활성화 방안, 4대 전략과 15대 실천과제",
+    copy: "지역경제 · 전통시장·상점가 9곳 현황 분석",
+    href: "/track",
+  },
+  {
+    type: "정책연구",
+    meta: "2025 · 인천광역시 동구의회",
+    title: "지속 가능한 보육·교육 정책 연구",
+    copy: "생활정책 · 보육·교육",
+    href: "/track",
+  },
+  {
+    type: "교육",
+    meta: "웹툰연수원",
+    title: "상시학습, 이제 웹툰으로 — 공무원 교육 3개 과정",
+    copy: "edu.jachinews.kr",
+    href: "https://edu.jachinews.kr",
+  },
+];
+
+export const services = [
+  {
+    key: "jachiai",
+    type: "AI 의정시스템",
+    name: "자치아이",
+    tagline: "AI 의정시스템",
+    domain: "jachiai.kr",
+    href: "/ai",
+    external: "https://jachiai.kr",
+    image: "/home/service-jachiai.jpg",
+    copy: "지방의회를 위한 AI 보좌관. 조례 검토부터 예결산 분석, 행정사무감사까지 의정 업무를 하나의 흐름으로 지원합니다.",
+  },
+  {
+    key: "edu",
+    type: "교육",
+    name: "웹툰연수원",
+    tagline: "공무원 상시학습",
+    domain: "edu.jachinews.kr",
+    href: "https://edu.jachinews.kr",
+    external: "https://edu.jachinews.kr",
+    image: "/home/service-edu.jpg",
+    copy: "웹툰으로 배우는 공무원 상시학습. 퀴즈와 실천과제를 마치면 수료증을 받아 인사랑 개인학습으로 등록합니다.",
+  },
+  {
+    key: "news",
+    type: "미디어",
+    name: "지방자치혁신뉴스",
+    tagline: "지방자치 전문 매체",
+    domain: "jachinews.kr",
+    href: "https://www.jachinews.kr",
+    external: "https://www.jachinews.kr",
+    image: "/home/service-news.jpg",
+    copy: "정책 브리프, 혁신 조례 분석, 데이터 분석, 원장 칼럼을 발행하는 지방자치 전문 매체입니다.",
+  },
+];
+
+export const fieldIndex = [
+  { title: "생활정책", scope: "복지, 고독사, 보육, 교육", projects: [["제6기 지역사회보장계획 수립", "2026"], ["지속 가능한 보육·교육 정책", "2025"], ["고독사 실태파악 및 지원방안", "2024"]] },
+  { title: "지역경제", scope: "전통시장, 자산 활용, 폐교 활용", projects: [["전통시장 활성화 방안", "2025"], ["폐교 활용 방안", "2024"]] },
+  { title: "자치제도", scope: "조례, 법규 정비, 의회 운영", projects: [["목포시의회 자치법규 일제정비", "2023"]] },
+  { title: "재정과 데이터", scope: "예산 분석, 지표, 정책 효과", projects: [["고령화 예산 실태분석 및 개선방안", "2023"]] },
+  { title: "환경과 탄소", scope: "탄소중립, 규제 개선", projects: [["1회용품 줄이기 실천방안", "2024"]] },
+  { title: "문화와 공간", scope: "문화시설, 타당성 조사", projects: [["예주 항일애국기념관 건립 타당성", "2023"]] },
+];
+
+export const director = {
+  name: "원성묵",
+  bio: "지방자치혁신연구원 원장 · 지방자치혁신뉴스 발행인. 『지방의정 AI로 혁신하라』 저자.",
+  photo: "/won-seongmuk.jpg",
+  site: "https://mook.jachiai.kr",
+};
+
+export const mainNav = [
+  { label: "연구", href: "/track" },
+  { label: "연구 분야", href: "/research" },
+  { label: "연구진", href: "/team" },
+  { label: "연구원 소개", href: "/about" },
 ];

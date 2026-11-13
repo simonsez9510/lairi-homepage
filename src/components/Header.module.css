@@ -1,0 +1,269 @@
+.header {
+  --ink: #16181b;
+  --ink-2: #3a3f45;
+  --muted: #6c7177;
+  --line: rgba(22, 24, 27, 0.12);
+  --soft: rgba(22, 24, 27, 0.06);
+  --paper: #f7f6f2;
+  --sheet: #fffefa;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+.wrap {
+  width: min(1200px, calc(100vw - 48px));
+  margin-inline: auto;
+}
+
+.util {
+  background: var(--paper);
+  border-bottom: 1px solid var(--soft);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.util .wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 36px;
+}
+
+.utilNav {
+  display: flex;
+  gap: 20px;
+}
+
+.utilNav a:hover {
+  color: var(--ink);
+}
+
+.bar {
+  background: var(--sheet);
+  border-bottom: 1px solid var(--line);
+}
+
+.barInner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 72px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.logo b {
+  background: var(--ink);
+  color: #fff;
+  padding: 2px 8px;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  font-size: 15px;
+  color: var(--ink-2);
+}
+
+.main > a,
+.dd button {
+  transition: color 0.15s ease-out;
+}
+
+.main > a:hover {
+  color: var(--ink);
+}
+
+.dd {
+  position: relative;
+}
+
+.dd button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dd:hover button,
+.ddOpen button {
+  color: var(--ink);
+}
+
+.ddMenu {
+  position: absolute;
+  left: -16px;
+  top: calc(100% + 20px);
+  width: 240px;
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 16px 32px -16px rgba(22, 24, 27, 0.25);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition: opacity 0.15s ease-out, transform 0.15s ease-out, visibility 0.15s;
+}
+
+.dd:hover .ddMenu,
+.ddOpen .ddMenu {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+
+.ddMenu::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -20px;
+  height: 20px;
+}
+
+.ddMenu a {
+  display: block;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.ddMenu a:hover {
+  background: var(--paper);
+}
+
+.ddMenu b {
+  display: block;
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--ink);
+}
+
+.ddMenu span {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--ink);
+  color: #fff !important;
+  transition: background-color 0.15s ease-out;
+}
+
+.cta:hover {
+  background: #000;
+}
+
+.mobile {
+  position: relative;
+  display: none;
+}
+
+.mobileToggle {
+  font: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  background: #fff;
+}
+
+.mobileMenu {
+  position: absolute;
+  right: 0;
+  top: 48px;
+  display: grid;
+  gap: 4px;
+  width: 220px;
+  padding: 8px;
+  background: var(--sheet);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  box-shadow: 0 16px 32px -16px rgba(22, 24, 27, 0.25);
+}
+
+.mobileMenu a {
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.mobileMenu a:hover {
+  background: var(--paper);
+}
+
+.mobileMenu .mobileCta {
+  background: var(--ink);
+  color: #fff;
+  font-weight: 600;
+}
+
+.mobileMenu .mobileCta:hover {
+  background: #000;
+}
+
+@media (max-width: 1040px) {
+  .main {
+    display: none;
+  }
+  .mobile {
+    display: block;
+  }
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    width: calc(100vw - 32px);
+  }
+  .util span {
+    display: none;
+  }
+  .util .wrap {
+    justify-content: flex-end;
+  }
+}
+
+@media (max-width: 420px) {
+  .cta {
+    display: none;
+  }
+}
