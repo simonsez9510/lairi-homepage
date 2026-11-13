@@ -6,7 +6,7 @@ export function Footer() {
       <span>© 2026 지방자치혁신연구원</span>
       <span>
         서울특별시 마포구 어울마당로 130, 3층 3358호 ·{" "}
-        <a className="font-bold text-civic-navy" href={links.news} target="_blank" rel="noopener noreferrer">
+        <a className="font-medium text-civic-navy" href={links.news} target="_blank" rel="noopener noreferrer">
           jachinews.kr
         </a>
       </span>

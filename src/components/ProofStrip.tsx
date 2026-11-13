@@ -16,7 +16,7 @@ export function ProofStrip() {
             index !== proofItems.length - 1 && "max-[640px]:border-b",
           )}
         >
-          <small className="font-extrabold text-[12px] text-civic-gold">{item.label}</small>
+          <small className="text-[13px] font-medium text-civic-muted">{item.label}</small>
           <strong className="mt-1 text-[19px] font-semibold leading-[1.25] text-civic-navy">{item.title}</strong>
           <p className="mt-1 text-[13px] leading-[1.35] text-civic-muted">{item.copy}</p>
         </div>
