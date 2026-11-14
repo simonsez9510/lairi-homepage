@@ -6,21 +6,8 @@ import {
   recentItems,
   researchTimeline,
   services,
-  teamMembers,
 } from "@/data/home";
 import s from "./home.module.css";
-
-const projectCount = researchTimeline.reduce((sum, year) => sum + year.projects.length, 0);
-const clientCount = new Set(researchTimeline.flatMap((year) => year.projects.map((p) => p.meta.split(" / ")[0]))).size;
-const firstYear = researchTimeline[0].year;
-const lastYear = researchTimeline[researchTimeline.length - 1].year;
-
-const figures = [
-  { value: projectCount, unit: "건", label: `정책연구 수행 · ${firstYear}–${lastYear}` },
-  { value: clientCount, unit: "곳", label: "의뢰 지방의회·지자체" },
-  { value: fieldIndex.length, unit: "개", label: "정책 연구 분야" },
-  { value: teamMembers.length, unit: "명", label: "연구진" },
-];
 
 const stackOrder = [
   { key: "jachiai", slot: s.shotBackLeft },
@@ -130,20 +117,6 @@ export default function HomePage() {
               })}
             </aside>
           </div>
-        </div>
-      </section>
-
-      <section className={s.figures} aria-label="연구원 숫자">
-        <div className={`${s.wrap} ${s.figuresGrid}`}>
-          {figures.map((fig) => (
-            <div key={fig.label} className={s.fig}>
-              <strong>
-                {fig.value}
-                <small>{fig.unit}</small>
-              </strong>
-              <span>{fig.label}</span>
-            </div>
-          ))}
         </div>
       </section>
 
