@@ -287,8 +287,8 @@ export const director = {
 };
 
 export const mainNav = [
-  { label: "연구", href: "/track" },
+  { label: "연구원 소개", href: "/about" },
+  { label: "연구 실적", href: "/track" },
   { label: "연구 분야", href: "/research" },
   { label: "연구진", href: "/team" },
-  { label: "연구원 소개", href: "/about" },
 ];

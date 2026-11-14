@@ -26,17 +26,12 @@ export function Header() {
           </Link>
 
           <div className={s.main}>
-            {mainNav.slice(0, 2).map((item) => (
+            {mainNav.map((item) => (
               <Link key={item.href} className="focus-ring" href={item.href}>
                 {item.label}
               </Link>
             ))}
             <ServicesMenu />
-            {mainNav.slice(2).map((item) => (
-              <Link key={item.href} className="focus-ring" href={item.href}>
-                {item.label}
-              </Link>
-            ))}
           </div>
 
           <div className={s.actions}>

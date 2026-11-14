@@ -23,6 +23,15 @@ function SmartLink({ href, className, children, onClick }: { href: string; class
   );
 }
 
+function ExternalMark() {
+  return (
+    <>
+      <span aria-hidden="true"> ↗</span>
+      <span className="sr-only"> (새 창)</span>
+    </>
+  );
+}
+
 function useCloseOnOutsideAndEscape(open: boolean, setOpen: (v: boolean) => void, ref: React.RefObject<HTMLElement | null>) {
   useEffect(() => {
     if (!open) return;
@@ -67,7 +76,10 @@ export function ServicesMenu() {
       <div id={menuId} className={s.ddMenu}>
         {services.map((svc) => (
           <SmartLink key={svc.key} className="focus-ring" href={svc.href} onClick={() => setOpen(false)}>
-            <b>{svc.name}</b>
+            <b>
+              {svc.name}
+              {svc.href.startsWith("http") && <ExternalMark />}
+            </b>
             <span>{svc.tagline}</span>
           </SmartLink>
         ))}
@@ -96,6 +108,7 @@ export function MobileMenu() {
           {[...mainNav, ...serviceLinks].map((item) => (
             <SmartLink key={item.href} className="focus-ring" href={item.href} onClick={close}>
               {item.label}
+              {item.href.startsWith("http") && <ExternalMark />}
             </SmartLink>
           ))}
           <Link className={`focus-ring ${s.mobileCta}`} href="/contact" onClick={close}>
